@@ -530,14 +530,6 @@
     },
     {
       "groupId": 1,
-      "title": "adad",
-      "tags": [
-        "ada"
-      ],
-      "id": 92
-    },
-    {
-      "groupId": 1,
       "title": "CAC",
       "tags": [
         "sfsd"
@@ -802,14 +794,6 @@
       ],
       "title": "egeger",
       "id": 30
-    },
-    {
-      "roleId": 92,
-      "permissions": [
-        5
-      ],
-      "title": "adad",
-      "id": 31
     },
     {
       "roleId": 93,
