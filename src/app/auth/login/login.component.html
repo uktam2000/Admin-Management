@@ -7,6 +7,7 @@
            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="log_items"> 
                 <input type="text"
+                 value="login"
                  id="input_text" 
                  class="log_inp inp_text" 
                  placeholder="Username"
@@ -26,6 +27,7 @@
                 id="input_password" 
                 class="log_inp inp_password" 
                 placeholder="Password"
+                value="password"
                 formControlName="password"
                 [ngClass]="{'has-error':loginForm.get('password').touched && loginForm.get('password').invalid}"
                 >

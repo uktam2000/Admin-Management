@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { catchError, finalize } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Subscription } from 'rxjs';
 import { NotifyMessageType } from 'src/app/core/classes/enams/core.enum';
 import { NotifyService } from 'src/app/core/services/notify.service';
 import { LoggedService } from '../logged.service';
@@ -13,19 +13,19 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService:AuthService,
     private notifyService:NotifyService,
     private loggedService:LoggedService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
      ) { }
 
   loginForm: FormGroup | any;
   public passwordState = false;
   showSpinnerBar = false;
+  sub1:Subscription | any;
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.showSpinnerBar = true;
       let userdata = this.loginForm.value;
-      this.authService.getUserByEmail(userdata.username)
+      this.sub1 = this.authService.getUserByEmail(userdata.username)
       .pipe(
         catchError((err:any)=>{
           this.notifyService.showNotification(
@@ -83,5 +83,11 @@ export class LoginComponent implements OnInit {
       })
 
   }
+
+  ngOnDestroy(){
+    if(this.sub1){
+     this.sub1.unsubscribe();
+    }
+   }
 
 }
